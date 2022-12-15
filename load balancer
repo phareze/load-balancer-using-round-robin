@@ -1,0 +1,19 @@
+# Create a list of servers to balance
+servers = ["server1", "server2", "server3"]
+
+# Create a counter to keep track of which server to send the next request to
+counter = 0
+
+# Create a function to handle incoming requests
+def handle_request(request):
+  global counter
+  server = servers[counter]
+  # Send the request to the selected server
+  send_request(request, server)
+  # Increment the counter to select the next server for the next request
+  counter = (counter + 1) % len(servers)
+
+# Listen for incoming requests and pass them to the handle_request function
+while True:
+  request = receive_request()
+  handle_request(request)
